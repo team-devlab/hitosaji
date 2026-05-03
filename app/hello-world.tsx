@@ -1,14 +1,11 @@
+import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-type Props = {
-  onNavigateHome: () => void;
-};
-
-export default function HelloWorldScreen({ onNavigateHome }: Props) {
+export default function HelloWorldScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Hello, World! 👋</Text>
-      <Pressable onPress={onNavigateHome} style={styles.button}>
+      <Pressable onPress={() => router.back()} style={styles.button}>
         <Text style={styles.buttonText}>最初の画面へ</Text>
       </Pressable>
     </View>

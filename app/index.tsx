@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   Pressable,
@@ -7,11 +8,7 @@ import {
   View,
 } from "react-native";
 
-type Props = {
-  onNavigateHello: () => void;
-};
-
-export default function WelcomeScreen({ onNavigateHello }: Props) {
+export default function WelcomeScreen() {
   const [age, setAge] = useState("");
   const isValid = age.trim().length > 0 && Number(age) > 0;
 
@@ -52,7 +49,7 @@ export default function WelcomeScreen({ onNavigateHello }: Props) {
           </Text>
         </Pressable>
 
-        <Pressable onPress={onNavigateHello} style={styles.linkButton}>
+        <Pressable onPress={() => router.push('/hello-world')} style={styles.linkButton}>
           <Text style={styles.linkText}>Hello World 画面を見る</Text>
         </Pressable>
       </View>

@@ -2,13 +2,23 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type Props = {
   onNavigateHome: () => void;
+  onNavigateAlbum: () => void;
 };
 
-export default function HelloWorldScreen({ onNavigateHome }: Props) {
+export default function HelloWorldScreen({
+  onNavigateHome,
+  onNavigateAlbum,
+}: Props) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Hello, World! 👋</Text>
-      <Pressable onPress={onNavigateHome} style={styles.button}>
+      <Pressable onPress={onNavigateAlbum} style={styles.button}>
+        <Text style={styles.buttonText}>しおりを見る</Text>
+      </Pressable>
+      <Pressable
+        onPress={onNavigateHome}
+        style={[styles.button, styles.buttonSpaced]}
+      >
         <Text style={styles.buttonText}>最初の画面へ</Text>
       </Pressable>
     </View>
@@ -33,6 +43,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 999,
+  },
+  buttonSpaced: {
+    marginTop: 12,
   },
   buttonText: {
     color: "#fff",

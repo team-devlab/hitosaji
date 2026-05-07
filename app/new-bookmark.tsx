@@ -20,7 +20,6 @@ export default function NewBookmarkScreen() {
   const handleSave = () => {
     const today = new Date().toISOString().slice(0, 10);
     console.log("[bookmark]", { date: today, message: trimmed });
-    setMessage("");
     router.back();
   };
 

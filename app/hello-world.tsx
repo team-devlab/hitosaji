@@ -5,7 +5,13 @@ export default function HelloWorldScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Hello, World! 👋</Text>
-      <Pressable onPress={() => router.push('/album')} style={styles.button}>
+      <Pressable onPress={() => router.push('/new-bookmark')} style={styles.button}>
+        <Text style={styles.buttonText}>しおりを残す</Text>
+      </Pressable>
+      <Pressable
+        onPress={() => router.push('/album')}
+        style={[styles.button, styles.buttonSpaced]}
+      >
         <Text style={styles.buttonText}>しおりを見る</Text>
       </Pressable>
       <Pressable

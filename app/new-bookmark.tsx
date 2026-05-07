@@ -10,6 +10,8 @@ import {
   View,
 } from "react-native";
 
+import { getTodayLocalDate } from "../lib/date";
+
 const MAX_MESSAGE_LENGTH = 100;
 
 export default function NewBookmarkScreen() {
@@ -18,8 +20,7 @@ export default function NewBookmarkScreen() {
   const isValid = trimmed.length > 0;
 
   const handleSave = () => {
-    const today = new Date().toISOString().slice(0, 10);
-    console.log("[bookmark]", { date: today, message: trimmed });
+    console.log("[bookmark]", { date: getTodayLocalDate(), message: trimmed });
     router.back();
   };
 

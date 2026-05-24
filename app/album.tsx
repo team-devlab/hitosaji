@@ -1,6 +1,8 @@
 import { router } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
+import { formatDay, formatMonth } from "../lib/date";
+
 type Bookmark = {
   id: string;
   date: string;
@@ -32,16 +34,6 @@ function groupByMonth(bookmarks: Bookmark[]): MonthGroup[] {
     }
   }
   return groups;
-}
-
-function formatMonth(month: string): string {
-  const [year, rawMonth] = month.split("-");
-  return `${year} 年 ${Number(rawMonth)} 月`;
-}
-
-function formatDay(date: string): string {
-  const [, rawMonth, rawDay] = date.split("-");
-  return `${Number(rawMonth)}/${Number(rawDay)}`;
 }
 
 export default function AlbumScreen() {

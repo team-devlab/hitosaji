@@ -54,6 +54,14 @@ export default function AlbumScreen() {
           <Text style={styles.linkText}>Hello World 画面に戻る</Text>
         </Pressable>
       </ScrollView>
+
+      <Pressable
+        onPress={() => router.push("/new-bookmark")}
+        style={styles.fab}
+        accessibilityLabel="しおりを残す"
+      >
+        <Text style={styles.fabIcon}>+</Text>
+      </Pressable>
     </View>
   );
 }
@@ -126,5 +134,27 @@ const styles = StyleSheet.create({
     color: "#7B8CAE",
     fontSize: 13,
     textDecorationLine: "underline",
+  },
+  fab: {
+    position: "absolute",
+    right: 24,
+    bottom: 32,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: "#4F7DF7",
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#7E8AAB",
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 6,
+  },
+  fabIcon: {
+    color: "#fff",
+    fontSize: 28,
+    lineHeight: 28,
+    fontWeight: "300",
   },
 });

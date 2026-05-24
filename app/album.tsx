@@ -2,22 +2,7 @@ import { router } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { formatDay, formatMonth } from "../lib/date";
-
-type Bookmark = {
-  id: string;
-  date: string;
-  message: string;
-};
-
-const DUMMY_BOOKMARKS: Bookmark[] = [
-  { id: "1", date: "2026-05-03", message: "駅前の立ち食いそば。ネギ多め。" },
-  { id: "2", date: "2026-05-02", message: "深夜のカップ麺。罪悪感すごいけど最高。" },
-  { id: "3", date: "2026-05-01", message: "少し焦げた卵焼き。朝はこれで十分。" },
-  { id: "4", date: "2026-04-29", message: "スーパーの半額シール弁当、助かった。" },
-  { id: "5", date: "2026-04-25", message: "実家の肉じゃが。母の味付けが少し変わっていた。" },
-  { id: "6", date: "2026-04-20", message: "コンビニのおにぎり。鮭、やっぱり一番。" },
-  { id: "7", date: "2026-03-30", message: "桜の下でおにぎり。風が強くて少し寒かった。" },
-];
+import { Bookmark, useBookmarks } from "../lib/store/bookmarks";
 
 type MonthGroup = { month: string; items: Bookmark[] };
 
@@ -37,8 +22,9 @@ function groupByMonth(bookmarks: Bookmark[]): MonthGroup[] {
 }
 
 export default function AlbumScreen() {
-  const groups = groupByMonth(DUMMY_BOOKMARKS);
-  const count = DUMMY_BOOKMARKS.length;
+  const bookmarks = useBookmarks((s) => s.bookmarks);
+  const groups = groupByMonth(bookmarks);
+  const count = bookmarks.length;
 
   return (
     <View style={styles.container}>
@@ -48,17 +34,21 @@ export default function AlbumScreen() {
           <Text style={styles.subtitle}>{count} 件</Text>
         </View>
 
-        {groups.map(({ month, items }) => (
-          <View key={month} style={styles.monthGroup}>
-            <Text style={styles.monthHeader}>{formatMonth(month)}</Text>
-            {items.map((bookmark) => (
-              <View key={bookmark.id} style={styles.card}>
-                <Text style={styles.date}>{formatDay(bookmark.date)}</Text>
-                <Text style={styles.message}>{bookmark.message}</Text>
-              </View>
-            ))}
-          </View>
-        ))}
+        {count === 0 ? (
+          <Text style={styles.empty}>まだしおりはありません</Text>
+        ) : (
+          groups.map(({ month, items }) => (
+            <View key={month} style={styles.monthGroup}>
+              <Text style={styles.monthHeader}>{formatMonth(month)}</Text>
+              {items.map((bookmark) => (
+                <View key={bookmark.id} style={styles.card}>
+                  <Text style={styles.date}>{formatDay(bookmark.date)}</Text>
+                  <Text style={styles.message}>{bookmark.message}</Text>
+                </View>
+              ))}
+            </View>
+          ))
+        )}
 
         <Pressable onPress={() => router.back()} style={styles.linkButton}>
           <Text style={styles.linkText}>Hello World 画面に戻る</Text>
@@ -90,6 +80,12 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 13,
     color: "#7B8CAE",
+  },
+  empty: {
+    marginTop: 48,
+    fontSize: 14,
+    color: "#7B8CAE",
+    textAlign: "center",
   },
   monthGroup: {
     marginBottom: 24,

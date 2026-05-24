@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 import { getTodayLocalDate } from "../lib/date";
+import { useBookmarks } from "../lib/store/bookmarks";
 
 const MAX_MESSAGE_LENGTH = 100;
 
@@ -18,9 +19,10 @@ export default function NewBookmarkScreen() {
   const [message, setMessage] = useState("");
   const trimmed = message.trim();
   const isValid = trimmed.length > 0;
+  const addBookmark = useBookmarks((s) => s.add);
 
   const handleSave = () => {
-    console.log("[bookmark]", { date: getTodayLocalDate(), message: trimmed });
+    addBookmark({ date: getTodayLocalDate(), message: trimmed });
     router.back();
   };
 
@@ -44,9 +46,6 @@ export default function NewBookmarkScreen() {
         </View>
         <Text style={styles.counter}>
           {message.length} / {MAX_MESSAGE_LENGTH}
-        </Text>
-        <Text style={styles.note}>
-          ※ 試作中。再起動するとデータは消えます
         </Text>
       </View>
 
@@ -109,12 +108,6 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontSize: 12,
     color: "#7B8CAE",
-  },
-  note: {
-    marginTop: 16,
-    fontSize: 12,
-    color: "#7B8CAE",
-    textAlign: "center",
   },
   footer: {
     alignItems: "center",

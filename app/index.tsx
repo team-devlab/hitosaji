@@ -35,9 +35,7 @@ export default function WelcomeScreen() {
         <Pressable
           style={[styles.button, !isValid && styles.buttonDisabled]}
           disabled={!isValid}
-          onPress={() => {
-            // 次の画面（残り食事数）への遷移は今後実装予定
-          }}
+          onPress={() => { router.push('/home') }}
         >
           <Text
             style={[
